@@ -23,7 +23,7 @@
       rel="stylesheet"
     />
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../page/css/style.css" />
     <link rel="stylesheet" href="student-style.css" />
     <style></style>
   </head>
@@ -134,25 +134,25 @@
         <div class="row g-4 mb-4">
           <div class="col-md-3">
             <div class="stats-card">
-              <h3 class="fw-bold text-primary">8</h3>
+              <h3 class="fw-bold text-primary" id="totalCVs">0</h3>
               <p class="text-muted mb-0">Tổng số CV</p>
             </div>
           </div>
           <div class="col-md-3">
             <div class="stats-card">
-              <h3 class="fw-bold text-success">5</h3>
+              <h3 class="fw-bold text-success" id="completedCVs">0</h3>
               <p class="text-muted mb-0">CV đã hoàn thành</p>
             </div>
           </div>
           <div class="col-md-3">
             <div class="stats-card">
-              <h3 class="fw-bold text-warning">2</h3>
+              <h3 class="fw-bold text-warning" id="draftCVs">0</h3>
               <p class="text-muted mb-0">CV bản nháp</p>
             </div>
           </div>
           <div class="col-md-3">
             <div class="stats-card">
-              <h3 class="fw-bold text-info">23</h3>
+              <h3 class="fw-bold text-info" id="applications">0</h3>
               <p class="text-muted mb-0">Lần ứng tuyển</p>
             </div>
           </div>
@@ -202,145 +202,39 @@
             <div class="tab-content" id="cvTabsContent">
               <!-- All CVs -->
               <div class="tab-pane fade show active" id="all" role="tabpanel">
-                <div class="row">
-                  <!-- CV 1 -->
-                  <div class="col-md-6 col-lg-4">
-                    <div class="cv-card">
-                      <div class="cv-preview">
-                        <div class="text-center">
-                          <i class="bi bi-file-text display-4 text-primary"></i>
-                          <p class="mt-2 mb-0">Modern Template</p>
-                        </div>
-                      </div>
-                      <h6 class="fw-bold mb-2">CV Frontend Developer</h6>
-                      <p class="text-muted small mb-2">Cập nhật: 18/12/2024</p>
-                      <div
-                        class="d-flex justify-content-between align-items-center mb-3"
-                      >
-                        <span class="badge bg-success">Đã hoàn thành</span>
-                        <small class="text-muted">8 lần ứng tuyển</small>
-                      </div>
-                      <div class="btn-group w-100">
-                        <button
-                          class="btn btn-outline-primary btn-sm"
-                          onclick="editCV(1)"
-                        >
-                          <i class="bi bi-pencil"></i>
-                        </button>
-                        <button
-                          class="btn btn-outline-success btn-sm"
-                          onclick="downloadCV(1)"
-                        >
-                          <i class="bi bi-download"></i>
-                        </button>
-                        <button
-                          class="btn btn-outline-info btn-sm"
-                          onclick="previewCV(1)"
-                        >
-                          <i class="bi bi-eye"></i>
-                        </button>
-                        <button
-                          class="btn btn-outline-danger btn-sm"
-                          onclick="deleteCV(1)"
-                        >
-                          <i class="bi bi-trash"></i>
-                        </button>
-                      </div>
+                <div class="row" id="allCVsContainer">
+                  <!-- CV sẽ được load từ API -->
+                  <div class="col-12 text-center py-5">
+                    <div class="spinner-border text-primary" role="status">
+                      <span class="visually-hidden">Đang tải...</span>
                     </div>
-                  </div>
-
-                  <!-- CV 2 -->
-                  <div class="col-md-6 col-lg-4">
-                    <div class="cv-card">
-                      <div class="cv-preview">
-                        <div class="text-center">
-                          <i class="bi bi-briefcase display-4 text-success"></i>
-                          <p class="mt-2 mb-0">Professional</p>
-                        </div>
-                      </div>
-                      <h6 class="fw-bold mb-2">CV Fullstack Developer</h6>
-                      <p class="text-muted small mb-2">Cập nhật: 15/12/2024</p>
-                      <div
-                        class="d-flex justify-content-between align-items-center mb-3"
-                      >
-                        <span class="badge bg-success">Đã hoàn thành</span>
-                        <small class="text-muted">5 lần ứng tuyển</small>
-                      </div>
-                      <div class="btn-group w-100">
-                        <button class="btn btn-outline-primary btn-sm">
-                          <i class="bi bi-pencil"></i>
-                        </button>
-                        <button class="btn btn-outline-success btn-sm">
-                          <i class="bi bi-download"></i>
-                        </button>
-                        <button class="btn btn-outline-info btn-sm">
-                          <i class="bi bi-eye"></i>
-                        </button>
-                        <button class="btn btn-outline-danger btn-sm">
-                          <i class="bi bi-trash"></i>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- CV 3 (Draft) -->
-                  <div class="col-md-6 col-lg-4">
-                    <div class="cv-card">
-                      <div class="cv-preview">
-                        <div class="text-center">
-                          <i
-                            class="bi bi-file-earmark display-4 text-warning"
-                          ></i>
-                          <p class="mt-2 mb-0">Creative</p>
-                        </div>
-                      </div>
-                      <h6 class="fw-bold mb-2">CV UI/UX Designer</h6>
-                      <p class="text-muted small mb-2">Cập nhật: 10/12/2024</p>
-                      <div
-                        class="d-flex justify-content-between align-items-center mb-3"
-                      >
-                        <span class="badge bg-warning">Bản nháp</span>
-                        <small class="text-muted">0 lần ứng tuyển</small>
-                      </div>
-                      <div class="btn-group w-100">
-                        <button class="btn btn-outline-primary btn-sm">
-                          <i class="bi bi-pencil"></i>
-                        </button>
-                        <button class="btn btn-outline-success btn-sm" disabled>
-                          <i class="bi bi-download"></i>
-                        </button>
-                        <button class="btn btn-outline-info btn-sm">
-                          <i class="bi bi-eye"></i>
-                        </button>
-                        <button class="btn btn-outline-danger btn-sm">
-                          <i class="bi bi-trash"></i>
-                        </button>
-                      </div>
-                    </div>
+                    <p class="text-muted mt-3">Đang tải danh sách CV...</p>
                   </div>
                 </div>
               </div>
 
               <!-- Completed CVs -->
               <div class="tab-pane fade" id="completed" role="tabpanel">
-                <div class="row">
-                  <!-- Only completed CVs would show here -->
-                  <div class="col-12">
-                    <p class="text-muted text-center py-4">
-                      Hiển thị CV đã hoàn thành
-                    </p>
+                <div class="row" id="completedCVsContainer">
+                  <!-- CV đã hoàn thành sẽ được load từ API -->
+                  <div class="col-12 text-center py-5">
+                    <div class="spinner-border text-primary" role="status">
+                      <span class="visually-hidden">Đang tải...</span>
+                    </div>
+                    <p class="text-muted mt-3">Đang tải CV đã hoàn thành...</p>
                   </div>
                 </div>
               </div>
 
               <!-- Draft CVs -->
               <div class="tab-pane fade" id="draft" role="tabpanel">
-                <div class="row">
-                  <!-- Only draft CVs would show here -->
-                  <div class="col-12">
-                    <p class="text-muted text-center py-4">
-                      Hiển thị CV bản nháp
-                    </p>
+                <div class="row" id="draftCVsContainer">
+                  <!-- CV bản nháp sẽ được load từ API -->
+                  <div class="col-12 text-center py-5">
+                    <div class="spinner-border text-primary" role="status">
+                      <span class="visually-hidden">Đang tải...</span>
+                    </div>
+                    <p class="text-muted mt-3">Đang tải CV bản nháp...</p>
                   </div>
                 </div>
               </div>
@@ -360,24 +254,254 @@
     <!-- Bootstrap 5 JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+      // API Base URL
+      const API_BASE_URL = "http://localhost:5000/api/cv";
+      
+      // Lấy userId từ localStorage (tạm thời dùng giá trị mặc định)
+      // Trong thực tế, bạn nên lấy từ authentication token
+      let currentUserId = localStorage.getItem("userId") || "1"; // Thay bằng SinhVien_id thực tế
+      let allCVs = [];
+      let completedCVs = [];
+      let draftCVs = [];
+
+      // Load danh sách CV khi trang load
+      document.addEventListener("DOMContentLoaded", function () {
+        loadAllCVs();
+        
+        // Xử lý tab switching
+        const tabButtons = document.querySelectorAll('#cvTabs button[data-bs-toggle="pill"]');
+        tabButtons.forEach(button => {
+          button.addEventListener('shown.bs.tab', function (event) {
+            const targetId = event.target.getAttribute('data-bs-target');
+            if (targetId === '#all') {
+              renderCVs(allCVs, 'allCVsContainer');
+            } else if (targetId === '#completed') {
+              renderCVs(completedCVs, 'completedCVsContainer');
+            } else if (targetId === '#draft') {
+              renderCVs(draftCVs, 'draftCVsContainer');
+            }
+          });
+        });
+      });
+
+      // Load tất cả CV
+      async function loadAllCVs() {
+        try {
+          const response = await fetch(`${API_BASE_URL}/list/${currentUserId}?includeDrafts=true`);
+          const result = await response.json();
+
+          if (result.success) {
+            allCVs = result.data || [];
+            
+            // Phân loại CV
+            completedCVs = allCVs.filter(cv => !cv.IsDraft || cv.IsDraft === 0);
+            draftCVs = allCVs.filter(cv => cv.IsDraft === 1);
+            
+            // Cập nhật stats
+            updateStats();
+            
+            // Render CVs
+            renderCVs(allCVs, 'allCVsContainer');
+          } else {
+            showError("Không thể tải danh sách CV: " + result.message);
+          }
+        } catch (error) {
+          console.error("Lỗi load CV:", error);
+          showError("Có lỗi xảy ra khi tải danh sách CV");
+        }
+      }
+
+      // Cập nhật thống kê
+      function updateStats() {
+        document.getElementById("totalCVs").textContent = allCVs.length;
+        document.getElementById("completedCVs").textContent = completedCVs.length;
+        document.getElementById("draftCVs").textContent = draftCVs.length;
+        // Applications - có thể lấy từ API khác
+        document.getElementById("applications").textContent = "0";
+      }
+
+      // Render danh sách CV
+      function renderCVs(cvs, containerId) {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+
+        if (cvs.length === 0) {
+          container.innerHTML = `
+            <div class="col-12 text-center py-5">
+              <i class="bi bi-file-text display-1 text-muted"></i>
+              <p class="text-muted mt-3">Chưa có CV nào. <a href="cv-builder.html">Tạo CV mới</a></p>
+            </div>
+          `;
+          return;
+        }
+
+        container.innerHTML = cvs.map(cv => {
+          const isDraft = cv.IsDraft === 1;
+          const templateIcon = getTemplateIcon(cv.Template || 'modern');
+          const templateName = getTemplateName(cv.Template || 'modern');
+          const updateDate = formatDate(cv.CreatedAt || cv.NgayTaiLen);
+          const skills = Array.isArray(cv.Skills) ? cv.Skills : (cv.Skills ? cv.Skills.split(', ') : []);
+
+          return `
+            <div class="col-md-6 col-lg-4 mb-4">
+              <div class="cv-card">
+                <div class="cv-preview">
+                  <div class="text-center">
+                    ${templateIcon}
+                    <p class="mt-2 mb-0">${templateName}</p>
+                  </div>
+                </div>
+                <h6 class="fw-bold mb-2">${cv.Title || cv.TenCV || 'CV chưa đặt tên'}</h6>
+                <p class="text-muted small mb-2">Cập nhật: ${updateDate}</p>
+                ${skills.length > 0 ? `
+                  <div class="mb-2">
+                    ${skills.slice(0, 3).map(skill => `<span class="badge bg-secondary me-1">${skill}</span>`).join('')}
+                    ${skills.length > 3 ? `<span class="text-muted">+${skills.length - 3}</span>` : ''}
+                  </div>
+                ` : ''}
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <span class="badge ${isDraft ? 'bg-warning' : 'bg-success'}">
+                    ${isDraft ? 'Bản nháp' : 'Đã hoàn thành'}
+                  </span>
+                  <small class="text-muted">0 lần ứng tuyển</small>
+                </div>
+                <div class="btn-group w-100">
+                  <button class="btn btn-outline-primary btn-sm" onclick="editCV(${cv.CVId || cv.CV_id})" title="Chỉnh sửa">
+                    <i class="bi bi-pencil"></i>
+                  </button>
+                  <button class="btn btn-outline-success btn-sm" onclick="downloadCV(${cv.CVId || cv.CV_id})" ${isDraft ? 'disabled' : ''} title="Tải PDF">
+                    <i class="bi bi-download"></i>
+                  </button>
+                  <button class="btn btn-outline-info btn-sm" onclick="previewCV(${cv.CVId || cv.CV_id})" title="Xem trước">
+                    <i class="bi bi-eye"></i>
+                  </button>
+                  <button class="btn btn-outline-danger btn-sm" onclick="deleteCV(${cv.CVId || cv.CV_id})" title="Xóa">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      // Lấy icon theo template
+      function getTemplateIcon(template) {
+        const icons = {
+          'modern': '<i class="bi bi-file-text display-4 text-primary"></i>',
+          'professional': '<i class="bi bi-briefcase display-4 text-success"></i>',
+          'creative': '<i class="bi bi-palette display-4 text-warning"></i>',
+          'minimal': '<i class="bi bi-layout-text-sidebar display-4 text-info"></i>'
+        };
+        return icons[template] || icons['modern'];
+      }
+
+      // Lấy tên template
+      function getTemplateName(template) {
+        const names = {
+          'modern': 'Modern Template',
+          'professional': 'Professional',
+          'creative': 'Creative',
+          'minimal': 'Minimal'
+        };
+        return names[template] || 'Modern Template';
+      }
+
+      // Format ngày tháng
+      function formatDate(dateString) {
+        if (!dateString) return 'Chưa cập nhật';
+        const date = new Date(dateString);
+        return date.toLocaleDateString('vi-VN', {
+          day: '2-digit',
+          month: '2-digit',
+          year: 'numeric'
+        });
+      }
+
+      // Hiển thị lỗi
+      function showError(message) {
+        const containers = ['allCVsContainer', 'completedCVsContainer', 'draftCVsContainer'];
+        containers.forEach(id => {
+          const container = document.getElementById(id);
+          if (container) {
+            container.innerHTML = `
+              <div class="col-12 text-center py-5">
+                <i class="bi bi-exclamation-triangle display-4 text-danger"></i>
+                <p class="text-danger mt-3">${message}</p>
+                <button class="btn btn-primary mt-2" onclick="loadAllCVs()">Thử lại</button>
+              </div>
+            `;
+          }
+        });
+      }
+
+      // Chỉnh sửa CV
       function editCV(cvId) {
-        window.location.href = "cv-builder.html?cv=" + cvId;
+        window.location.href = `cv-builder.html?id=${cvId}`;
       }
 
-      function downloadCV(cvId) {
-        alert("Đang tải xuống CV ID: " + cvId);
-        // Implement download logic here
+      // Tải CV dạng PDF
+      async function downloadCV(cvId) {
+        try {
+          const button = event.target.closest('button');
+          const originalHTML = button.innerHTML;
+          button.disabled = true;
+          button.innerHTML = '<span class="spinner-border spinner-border-sm"></span>';
+
+          const response = await fetch(`${API_BASE_URL}/${cvId}/download?userId=${currentUserId}`);
+          
+          if (response.ok) {
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `CV_${cvId}_${Date.now()}.pdf`;
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(a);
+          } else {
+            const result = await response.json();
+            alert("Lỗi: " + (result.message || "Không thể tải PDF"));
+          }
+
+          button.disabled = false;
+          button.innerHTML = originalHTML;
+        } catch (error) {
+          console.error("Lỗi tải PDF:", error);
+          alert("Có lỗi xảy ra khi tải PDF");
+          event.target.closest('button').disabled = false;
+        }
       }
 
+      // Xem trước CV
       function previewCV(cvId) {
-        alert("Xem trước CV ID: " + cvId);
-        // Implement preview logic here
+        // Mở CV builder ở chế độ preview hoặc modal
+        window.open(`cv-builder.html?id=${cvId}&preview=true`, '_blank');
       }
 
-      function deleteCV(cvId) {
-        if (confirm("Bạn có chắc muốn xóa CV này?")) {
-          alert("Đã xóa CV ID: " + cvId);
-          // Implement delete logic here
+      // Xóa CV
+      async function deleteCV(cvId) {
+        if (!confirm("Bạn có chắc muốn xóa CV này? Hành động này không thể hoàn tác.")) {
+          return;
+        }
+
+        try {
+          const response = await fetch(`${API_BASE_URL}/${cvId}?userId=${currentUserId}`, {
+            method: 'DELETE'
+          });
+
+          const result = await response.json();
+
+          if (result.success) {
+            alert("Đã xóa CV thành công!");
+            loadAllCVs(); // Reload danh sách
+          } else {
+            alert("Lỗi: " + result.message);
+          }
+        } catch (error) {
+          console.error("Lỗi xóa CV:", error);
+          alert("Có lỗi xảy ra khi xóa CV");
         }
       }
     </script>
