@@ -507,3 +507,74 @@
     </script>
   </body>
 </html>
+          button.innerHTML =
+            '<span class="spinner-border spinner-border-sm"></span>';
+
+          const response = await fetch(
+            `${API_BASE_URL}/${cvId}/download?userId=${currentUserId}`
+          );
+
+          if (response.ok) {
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = `CV_${cvId}_${Date.now()}.pdf`;
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(a);
+          } else {
+            const result = await response.json();
+            alert("Lỗi: " + (result.message || "Không thể tải PDF"));
+          }
+
+          button.disabled = false;
+          button.innerHTML = originalHTML;
+        } catch (error) {
+          console.error("Lỗi tải PDF:", error);
+          alert("Có lỗi xảy ra khi tải PDF");
+          event.target.closest("button").disabled = false;
+        }
+      }
+
+      // Xem trước CV
+      function previewCV(cvId) {
+        // Mở CV builder ở chế độ preview hoặc modal
+        window.open(`cv-builder.html?id=${cvId}&preview=true`, "_blank");
+      }
+
+      // Xóa CV
+      async function deleteCV(cvId) {
+        if (
+          !confirm(
+            "Bạn có chắc muốn xóa CV này? Hành động này không thể hoàn tác."
+          )
+        ) {
+          return;
+        }
+
+        try {
+          const response = await fetch(
+            `${API_BASE_URL}/${cvId}?userId=${currentUserId}`,
+            {
+              method: "DELETE",
+            }
+          );
+
+          const result = await response.json();
+
+          if (result.success) {
+            alert("Đã xóa CV thành công!");
+            loadAllCVs(); // Reload danh sách
+          } else {
+            alert("Lỗi: " + result.message);
+          }
+        } catch (error) {
+          console.error("Lỗi xóa CV:", error);
+          alert("Có lỗi xảy ra khi xóa CV");
+        }
+      }
+    </script>
+  </body>
+</html>
